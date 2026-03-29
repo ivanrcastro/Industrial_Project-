@@ -51,12 +51,12 @@ Open RViz2 to see the robots in 3D space:
 
 ## 🎮 Dashboard Commands
 
-  Key     Target        Action
-  ------- ------------- -----------------------------------------
-  1 / 2   AMR_01 / 02   Emergency Stop (Immediate freeze)
-  Q / W   AMR_01 / 02   Reset (Resume normal navigation)
-  A / S   AMR_01 / 02   Charge (Send robot to docking station)
-  X       All Robots    Global Stop (Fleet-wide emergency halt)
+| Key | Target | Action |
+| :--- | :--- | :--- |
+| **1 / 2** | AMR_01 / 02 | Emergency Stop (Immediate freeze) |
+| **Q / W** | AMR_01 / 02 | Reset (Resume normal navigation) |
+| **A / S** | AMR_01 / 02 | Charge (Send robot to docking station) |
+| **X** | All Robots | Global Stop (Fleet-wide emergency halt) |
 
 ## 🛠️ Maintenance & Debugging
 
