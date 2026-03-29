@@ -1,0 +1,28 @@
+services:
+  mqtt_broker:
+    image: eclipse-mosquitto:latest
+    container_name: mqtt_broker
+    # O comando abaixo permite ligações de fora do contentor sem precisar de ficheiro .conf
+    command: mosquitto -c /mosquitto-no-auth.conf
+    ports:
+      - "1883:1883"
+    networks:
+      - factory_net
+
+  ros2_factory:
+    build: 
+      context: .
+      dockerfile: ros2.Dockerfile
+    container_name: ros2_factory
+    depends_on:
+      - mqtt_broker
+    volumes:
+      - ./ros2_ws:/ros2_ws
+    networks:
+      - factory_net
+    tty: true
+    stdin_open: true
+
+networks:
+  factory_net:
+    driver: bridge

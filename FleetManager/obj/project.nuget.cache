@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "/XOlYuu276fa4Yo69TXFndYkiKyS9GBUZw98rlmZSfIrfBRg8ws2sNWDvTmIqtX4E5/mMg1gARB5Xfa7WI6hRg==",
+  "success": true,
+  "projectFilePath": "/home/ivan/Documents/industrial_project/FleetManager/FleetManager.csproj",
+  "expectedPackageFiles": [
+    "/home/ivan/.nuget/packages/mqttnet/4.3.7.1207/mqttnet.4.3.7.1207.nupkg.sha512",
+    "/home/ivan/.nuget/packages/spectre.console/0.54.0/spectre.console.0.54.0.nupkg.sha512"
+  ],
+  "logs": []
+}

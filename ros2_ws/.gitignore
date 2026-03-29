@@ -1,0 +1,13 @@
+# ROS 2
+build/
+install/
+log/
+
+# C# / .NET
+bin/
+obj/
+.vs/
+
+# Outros
+.vscode/
+*.user
