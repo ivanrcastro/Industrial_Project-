@@ -16,3 +16,4 @@
 /home/ivan/Documents/industrial_project/FleetManager/obj/Debug/net8.0/FleetManager.genruntimeconfig.cache
 /home/ivan/Documents/industrial_project/FleetManager/obj/Debug/net8.0/ref/FleetManager.dll
 /home/ivan/Documents/industrial_project/FleetManager/bin/Debug/net8.0/Spectre.Console.dll
+/home/ivan/Documents/industrial_project/FleetManager/obj/Debug/net8.0/FleetManager.sourcelink.json

@@ -1,57 +1,62 @@
 🏭 Factory Fleet Manager (ROS 2 + C#)
 
-A distributed industrial simulation featuring a fleet of Autonomous Mobile Robots (AMR) controlled individually via a C# Dashboard. The system uses MQTT as a communication bridge and ROS 2 for robot logic, telemetry, and 3D visualization.
+A distributed industrial simulation featuring a fleet of Autonomous Mobile Robots (AMR). This project demonstrates real-time monitoring and control using MQTT as a high-speed communication bridge between ROS 2 (C++) and a professional C# Dashboard.
 🏗️ System Architecture
 
-The project is divided into three main layers:
+The project is built on three decoupled layers:
 
-    Control Layer (C#): A high-level dashboard for monitoring battery, status, and position.
+    Control Layer (C#): A high-level dashboard for real-time monitoring and command issuing.
 
-    Bridge Layer (MQTT/ROS 2): A C++ node that translates MQTT JSON payloads into ROS 2 messages.
+    Bridge Layer (MQTT/ROS 2): A C++ node that bi-directionally translates MQTT JSON payloads into ROS 2 messages.
 
     Simulation Layer (ROS 2): Individual robot nodes (AMR_01, AMR_02) handling kinematics and TF2 transforms.
 
-🚀 Execution Guide
+🚀 Execution Guide (Simplified)
 
-To run the complete system, open 5 terminals in the following order (ensure you have sourced your ROS 2 workspace: source install/setup.bash):
-Order	Component	Terminal / Command	Purpose
-1	MQTT Broker	mosquitto -v	Handles messaging between C# and ROS 2.
-2	MQTT Bridge	ros2 run amr_controller mqtt_bridge	Bridges the MQTT/ROS 2 communication gap.
-3	AMR Nodes	
+Instead of manual terminal management, use the provided automation script.
+1. Launch ROS 2 Stack (Docker/Linux)
 
-ros2 run amr_controller robot_node
+In your main terminal, run:
+Bash
 
-ros2 run amr_controller robot_node_2
-	Simulates robot logic, battery, and movement.
-4	Visualization	rviz2	Setup: Set Fixed Frame to world and add TF/Marker.
-5	Dashboard	dotnet run (inside /FleetManager)	Real-time monitoring and individual control.
+chmod +x start_factory.sh
+./start_factory.sh
+
+This starts the Mosquitto Broker, the MQTT Bridge, and all Robot Nodes in the background.
+2. Launch Control Dashboard (Host PC)
+
+In a new terminal on your computer, run:
+Bash
+
+cd FleetManager
+dotnet run
+
+3. Visualization
+
+Open RViz2 to see the robots in 3D space:
+
+    Set Fixed Frame to world.
+
+    Add TF and Marker displays to visualize the fleet.
 
 🎮 Dashboard Commands
 Key	Target	Action
-1 / 2	AMR_01 / 02	Emergency Stop (Stop selected robot)
-Q / W	AMR_01 / 02	Reset (Resume navigation)
-A / S	AMR_01 / 02	Charge (Send selected robot to charge)
-X	All	Global Stop (Freeze the entire fleet)
-🛠️ Project Structure
+1 / 2	AMR_01 / 02	Emergency Stop (Immediate freeze)
+Q / W	AMR_01 / 02	Reset (Resume normal navigation)
+A / S	AMR_01 / 02	Charge (Send robot to docking station)
+X	All Robots	Global Stop (Fleet-wide emergency halt)
+🛠️ Maintenance & Debugging
 
-    amr_controller/: ROS 2 C++ package containing robot nodes and the MQTT bridge.
+    Stop All Background Processes: If you need to restart cleanly, run: pkill -f amr_controller && pkill mosquitto
 
-    FleetManager/: C# Console Application built with Spectre.Console and MQTTnet.
+    Check Logs: The launch script redirects output to /tmp/bridge.log, /tmp/robot1.log, and /tmp/robot2.log.
 
-    factory_interfaces/: Custom ROS 2 message definitions for Robot State (Battery, Pose, Status).
+    Monitor MQTT: Use mosquitto_sub -t "factory/fleet/status" to see raw telemetry.
 
 📈 Roadmap
 
-    [ ] Integrate URDF models for realistic visualization (KUKA LBR iiwa).
+    [ ] KUKA LBR iiwa Integration: Replace basic markers with URDF models.
 
-    [ ] Add Environmental Markers (Walls, Charging Stations) in RViz.
+    [ ] Environmental Mapping: Add static markers (walls, zones) in RViz.
 
-    [ ] Implement basic Obstacle Avoidance between robots.
-
-💡 Troubleshooting
-
-    Check MQTT Traffic: Use mosquitto_sub -t "factory/fleet/status" to see raw JSON.
-
-    Check ROS TFs: Run ros2 run tf2_tools view_frames to verify coordinate trees.
-
-    Clean Build: If errors occur, run rm -rf build/ install/ log/ before rebuilding.
+    [ ] Collision Avoidance: Implement basic proximity logic between AMRs.
